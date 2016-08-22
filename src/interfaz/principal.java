@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USUARIO
@@ -27,21 +29,134 @@ public class principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtOrdinarias = new javax.swing.JTextField();
+        txtEspeciales = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        txtPrestamo = new javax.swing.JTextField();
+        cmdCalcular = new javax.swing.JButton();
+        cmdBorrar = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setText("15. Microcréditos a empresarios");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel2.setText("Total del préstamo");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel3.setText("Total a pagar");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel4.setText("Cuotas especiales");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        jLabel5.setText("Cuotas ordinarias");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        txtOrdinarias.setEditable(false);
+        getContentPane().add(txtOrdinarias, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 80, 30));
+
+        txtEspeciales.setEditable(false);
+        getContentPane().add(txtEspeciales, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 80, 30));
+
+        txtTotal.setEditable(false);
+        getContentPane().add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 80, 30));
+
+        txtPrestamo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrestamoKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txtPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 80, 30));
+
+        cmdCalcular.setText("Calcular Totales");
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 120, 30));
+
+        cmdBorrar.setText("Limpiar");
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 70, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+      double prestamo, tpagar, cuotas, cespeciales, cordinarias;
+      String pagar, especiales, ordinarias;
+      
+       if(txtPrestamo.getText().trim().isEmpty()){
+        JOptionPane.showMessageDialog(this, "Digite la cantidad prestada","Error", JOptionPane.ERROR_MESSAGE);  
+        txtPrestamo.requestFocusInWindow(); 
+         txtPrestamo.selectAll();    
+
+     }
+
+       else{ 
+    prestamo=Double.parseDouble(txtPrestamo.getText());
+    
+    if(prestamo==0) {
+       JOptionPane.showMessageDialog(this, "No hubo préstamo","Aviso", JOptionPane.INFORMATION_MESSAGE);  
+        txtPrestamo.requestFocusInWindow(); 
+        txtPrestamo.selectAll();  
+       }  
+    
+    tpagar=(prestamo+(prestamo*0.24));
+    cuotas=(tpagar/2);
+    cespeciales=(cuotas/4);
+    cordinarias=(cuotas/20);
+    
+    pagar=String.valueOf(tpagar);
+    txtTotal.setText (pagar);    
+    
+    especiales=String.valueOf(cespeciales);
+    txtEspeciales.setText (especiales);  
+    
+    ordinarias=String.valueOf(cordinarias);
+    txtOrdinarias.setText(ordinarias); 
+           
+           
+       }
+      
+     
+    }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+     txtPrestamo.setText("");
+     txtTotal.setText("");
+     txtEspeciales.setText("");
+     txtOrdinarias.setText("");
+     txtPrestamo.requestFocusInWindow();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void txtPrestamoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrestamoKeyTyped
+char c=evt.getKeyChar(); 
+       
+          if(!Character.isDigit(c)) { 
+              getToolkit().beep();    
+              evt.consume(); 
+          }  
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrestamoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -79,5 +194,16 @@ public class principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdBorrar;
+    private javax.swing.JButton cmdCalcular;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField txtEspeciales;
+    private javax.swing.JTextField txtOrdinarias;
+    private javax.swing.JTextField txtPrestamo;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
